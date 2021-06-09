@@ -21,6 +21,7 @@ runs:
         id: extract_branch
       - name: Form tag name
         id: tagging
+        shell: bash
         run: |
           git config user.name github-actions@github.com
           git config user.email github-actions
@@ -71,16 +72,7 @@ runs:
           echo "new tag is : $tag_name"
           echo ::set-output name=prerelease::$prerelease
           echo ::set-output name=tag_id::$tag_name
-      - name: Release snapshot
-        id: release-snapshot
-        uses: actions/create-release@latest
-        env:
-          GITHUB_TOKEN: ${{ inputs.GITHUBPAT }}
-        with:
-          tag_name: ${{ steps.tagging.outputs.tag_id }}
-          release_name: ${{ steps.tagging.outputs.tag_id }}
-          draft: false
-          prerelease: ${{ steps.tagging.outputs.prerelease }}
+
 
 branding:
   icon: "book-open"
