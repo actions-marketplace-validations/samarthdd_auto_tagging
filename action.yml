@@ -75,6 +75,7 @@ runs:
           
       - name: create tag
         id: creatre tag
+        shell: bash
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUBPAT }}
         run: |
@@ -88,7 +89,9 @@ runs:
               git push --tags origin master
           fi
           
-       - name : tag PR on merge         
+       - name : tag PR and issue on merge   
+         id: tag PR and Issue
+         shell: bash
          env:
             GITHUB_TOKEN: ${{ secrets.GITHUBPAT }}
          run: |
